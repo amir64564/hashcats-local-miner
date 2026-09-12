@@ -1,14 +1,17 @@
 {
   "name": "hashcats-local-miner",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "type": "module",
-  "description": "Open-source local Hashcats.fun PoW miner — no telemetry, hit prompts yes to submit",
+  "description": "Open-source local Hashcats.fun PoW miner \u2014 persistent workers, SAB progress, hit\u2192yes\u2192submit, no telemetry",
   "license": "MIT",
-  "bin": { "hashcats-mine": "./mine.mjs" },
+  "bin": {
+    "hashcats-mine": "./mine.mjs"
+  },
   "scripts": {
     "mine": "node mine.mjs",
-    "mine:dry": "node mine.mjs --dry-run"
+    "mine:dry": "node mine.mjs --dry-run",
+    "mine:rent-help": "node mine.mjs --gpu-rent"
   },
   "dependencies": {
     "ethereum-cryptography": "^3.0.0",
