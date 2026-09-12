@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hashcats local WebGPU miner (open source)</title>
+  <style>
+    :root { color-scheme: dark; --bg:#07070a; --fg:#e8ffe8; --accent:#b8ff00; --muted:#7a8a7a; }
+    * { box-sizing: border-box; }
+    body { margin:0; font: 14px/1.45 ui-sans-serif, system-ui, sans-serif; background:var(--bg); color:var(--fg); padding:1.25rem; max-width:720px; }
+    h1 { font-size:1.15rem; color:var(--accent); margin:0 0 .5rem; }
+    .muted { color:var(--muted); font-size:.9rem; }
+    label { display:block; margin:.75rem 0 .25rem; color:var(--muted); font-size:.8rem; }
+    input, select, button { width:100%; padding:.65rem .75rem; border-radius:8px; border:1px solid #222; background:#12141a; color:var(--fg); }
+    button { background:var(--accent); color:#071000; font-weight:700; border:0; cursor:pointer; margin-top:1rem; }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    button.secondary { background:#1c2230; color:var(--fg); }
+    .row { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
+    .stat { background:#10131a; border:1px solid #1c2430; border-radius:10px; padding:.75rem; margin-top:.75rem; }
+    .stat b { color:var(--accent); }
+    code { font-family: ui-monospace, monospace; font-size:.8rem; word-break:break-all; }
+    .ok { color:var(--accent); }
+    .warn { color:#ffb86b; }
+  </style>
+</head>
+<body>
+  <h1>Hashcats local WebGPU miner</h1>
+  <p class="muted">Open source · max workers · fast WebGPU connect (rejects SwiftShader) · hit → OK/yes → submit. Prefer Desktop/noVNC NVIDIA rental + max-gpu-chrome.sh for real GH/s.</p>
+
+  <label>Robinhood RPC</label>
+  <input id="rpc" value="https://robinhood.drpc.org" />
+
+  <label>Collection contract</label>
+  <input id="contract" value="0xCA75DF55Cc9C476DB27a7375D1fc8E794cf80721" />
+
+  <label>Miner address (your wallet)</label>
+  <input id="miner" placeholder="0x…" />
+
+  <label>Private key (optional — only after you click OK/yes on hit; never leaves this page)</label>
+  <input id="key" type="password" placeholder="leave empty to search-only" autocomplete="off" />
+
+  <div class="row">
+    <div>
+      <label>Power preference</label>
+      <select id="power"><option value="high-performance">high-performance</option><option value="low-power">low-power</option></select>
+    </div>
+    <div>
+      <label>Mode</label>
+      <select id="mode"><option value="search">search only (alert on hit)</option><option value="submit">search + submit after yes/OK</option></select>
+    </div>
+  </div>
+
+  <button id="start">Start mining</button>
+  <button id="stop" class="secondary" disabled>Stop</button>
+
+  <div class="stat" id="gpu">GPU: <span class="muted">not started</span></div>
+  <div class="stat">Speed: <b id="rate">—</b> · Best: <b id="best">—</b> bits · Need: <b id="need">—</b></div>
+  <div class="stat">Status: <span id="status" class="muted">idle</span></div>
+  <div class="stat">Last hash: <code id="hash">—</code></div>
+  <p class="muted">PoW: keccak256(abi.encodePacked(miner, nonce, prevWork, anchor)) &lt; targetFor(miner). Verified against on-chain workHash.</p>
+
+  <script type="module" src="./miner.js"></script>
+</body>
+</html>

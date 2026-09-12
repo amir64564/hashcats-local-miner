@@ -1,0 +1,4 @@
+node_modules/
+last-solution.json
+.env
+*.log

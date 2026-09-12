@@ -1,0 +1,17 @@
+{
+  "name": "hashcats-local-miner",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
+  "description": "Open-source local Hashcats.fun PoW miner — no telemetry, hit prompts yes to submit",
+  "license": "MIT",
+  "bin": { "hashcats-mine": "./mine.mjs" },
+  "scripts": {
+    "mine": "node mine.mjs",
+    "mine:dry": "node mine.mjs --dry-run"
+  },
+  "dependencies": {
+    "ethereum-cryptography": "^3.0.0",
+    "viem": "^2.56.3"
+  }
+}
